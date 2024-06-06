@@ -1,57 +1,43 @@
-from docx import Document
-from docx.oxml import OxmlElement
-from docx.oxml.ns import qn
-import latex2mathml.converter
+from pdf2docx import Converter
+import win32com.client
 
-def latex_to_omml(latex):
-    mathml = latex2mathml.converter.convert(latex)
-    omml = f'''
-    <m:oMathPara xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math">
-      <m:oMath>
-        {mathml}
-      </m:oMath>
-    </m:oMathPara>
-    '''
-    return omml
+def pdf2docx_pdf(pdf_file):
+    docx_file = pdf_file.replace('.pdf', '.docx')
+    # Create a Converter object
+    cv = Converter(pdf_file)
+    
+    # Convert the PDF to a DOCX file
+    cv.convert(docx_file, start=0, end=None)  # start and end can be used to specify the range of pages
+    
+    # Close the Converter object
+    cv.close()
+    
+    print(f'{pdf_file} has been successfully converted to {docx_file}')
+  
+def win32com_pdf(pdf_file):
+    try:
+        docx_file = pdf_file.replace('.pdf', '.docx')
+        # Create an instance of Word application
+        word = win32com.client.Dispatch("Word.Application")
 
-def add_math(paragraph, equation):
-    # Create the <m:oMathPara> element
-    omath_para = OxmlElement('m:oMathPara')
-    omath = OxmlElement('m:oMath')
-    omath_para.append(omath)
+        # Set Word to be visible (optional)
+        word.Visible = False
 
-    # Create the <m:r> element
-    run = OxmlElement('m:r')
-    run_properties = OxmlElement('m:rPr')
-    run.append(run_properties)
+        # print('Open PDF file')
+        # Open the PDF file
+        doc = word.Documents.Open(pdf_file)
+        # Save the PDF as a DOCX file
+        doc.SaveAs(docx_file, FileFormat=16)  # 16 corresponds to the wdFormatDocumentDefault (DOCX format)
 
-    # Create the <m:t> element
-    text = OxmlElement('m:t')
-    text.text = equation
-    run.append(text)
+        # Close the document and Word application
+        doc.Close()
+        word.Quit()
 
-    # Append the run to the <m:oMath> element
-    omath.append(run)
+        print(f'{pdf_file} has been successfully converted to {docx_file}')
+    except Exception as e:
+        print(f'An error occurred : {e}')
 
-    # Append the <m:oMathPara> element to the paragraph
-    paragraph._element.append(omath_para)
-
-# Create a new Document
-doc = Document()
-
-# Add a title to the document
-doc.add_heading('Math Equation Example', level=1)
-
-# Add some text
-p = doc.add_paragraph('Below is an example of a math equation:\n')
-
-latex = r"E = mc^2"
-omml = latex_to_omml(latex)
-# Add a math equation
-add_math(p, omml)
-
-# Save the document
-output_path = 'example.docx'
-doc.save(output_path)
-
-print(f"The Word document has been saved as {output_path}")
+if __name__ == "__main__":
+    pdf_file = './example1.pdf'
+    # pdf2docx_pdf(pdf_file)
+    win32com_pdf(pdf_file)

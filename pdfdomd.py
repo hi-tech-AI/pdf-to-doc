@@ -174,6 +174,6 @@ def pdf_to_html(input_pdf_path, file_type):
     # return converted_html_path
 
 if __name__ == "__main__":
-    input_pdf_path = 'input.pdf'
+    input_pdf_path = 'example1.pdf'
     file_type = 'docx'
     pdf_to_html(input_pdf_path, file_type)

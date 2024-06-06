@@ -20,7 +20,7 @@ Podemos organizar os alunos em 4 grupos, um para cada ano. Cada um desses grupos
 
 Veja cada grupo no gráfico a seguir.
 
-![](https://cdn.mathpix.com/cropped/2024_06_06_0b2ecfe45968568356bfg-1.jpg?height=521&width=642&top_left_y=1378&top_left_x=238)
+![](https://cdn.mathpix.com/cropped/2024_06_06_18836aed184f81d95801g-1.jpg?height=521&width=642&top_left_y=1378&top_left_x=238)
 
 Como será selecionada a amostra de 44 alunos?
 

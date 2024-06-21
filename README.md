@@ -1,4 +1,4 @@
-# PDF to DOCX Conversion Script
+# PDF to DOCX Conversion
 
 This project provides two methods for converting PDF files to DOCX format using Python:
 

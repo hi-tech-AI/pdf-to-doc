@@ -38,6 +38,6 @@ def win32com_pdf(pdf_file):
         print(f'An error occurred : {e}')
 
 if __name__ == "__main__":
-    pdf_file = './example1.pdf'
-    # pdf2docx_pdf(pdf_file)
-    win32com_pdf(pdf_file)
+    pdf_file = 'example1.pdf'
+    pdf2docx_pdf(pdf_file)
+    # win32com_pdf(pdf_file)
